@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FACENS - Engenharia, Administração e Computação</title>
+    <meta
+      name="description"
+      content="FACENS: cursos de Administração, Engenharia e Computação. Estrutura moderna, laboratórios e depoimentos de alunos."
+    />
+    <meta
+      name="keywords"
+      content="FACENS, cursos, engenharia, administração, ciência da computação, educação, tecnologia, inovação"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+      body {
+        background: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: 0.3s;
+      }
+
+      /* Header */
+      header {
+        background: #003366;
+        padding: 15px 50px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      header nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 1.9em;
+        font-weight: bold;
+        color: white;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+      nav a {
+        color: white;
+        font-weight: 500;
+        position: relative;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background: #ffcc00;
+        transition: 0.3s;
+      }
+      nav a:hover::after {
+        width: 100%;
+      }
+      nav a:hover {
+        color: #ffcc00;
+      }
+
+      /* Banner */
+      .banner {
+        position: relative;
+        height: 500px;
+        background: url("09.09/unnamed.png") center/cover no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      .banner::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.2)
+        );
+      }
+      .banner .overlay {
+        position: relative;
+        color: white;
+        text-align: center;
+        max-width: 700px;
+        animation: fadeIn 1.5s ease-in-out;
+      }
+      .banner h1 {
+        font-size: 3em;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      }
+      .banner p {
+        font-size: 1.4em;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+      }
+      .banner a {
+        padding: 12px 30px;
+        border: 2px solid white;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.4s;
+      }
+      .banner a:hover {
+        background: white;
+        color: #003366;
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Sections */
+      section {
+        padding: 70px 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+      section h2 {
+        text-align: center;
+        font-size: 2.1em;
+        margin-bottom: 50px;
+        color: #003366;
+        position: relative;
+      }
+      section h2::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: #ffcc00;
+        margin: 15px auto 0;
+        border-radius: 2px;
+      }
+
+      /* Video */
+      .video iframe {
+        width: 100%;
+        height: 450px;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Cursos */
+      .cursos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+      .curso {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        transition: 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .curso img {
+        width: 100%;
+        border-radius: 15px;
+        margin-bottom: 15px;
+      }
+      .curso h3 {
+        color: #003366;
+        margin-bottom: 12px;
+        font-size: 1.3em;
+      }
+      .curso p {
+        color: #555;
+        font-size: 0.95em;
+      }
+      .curso.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: 0.6s;
+      }
+
+      /* Depoimentos */
+      .depoimentos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+      }
+      .depoimento {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .depoimento.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: 0.6s;
+      }
+      .depoimento img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+      }
+      .depoimento p {
+        font-size: 0.95em;
+        color: #555;
+        margin-bottom: 12px;
+      }
+
+      /* Fale Conosco */
+      #contato form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        background: #fff;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        max-width: 600px;
+        margin: auto;
+        transition: 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      #contato form.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: 0.6s;
+      }
+      #contato form input,
+      #contato form textarea {
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        transition: 0.3s;
+        width: 100%;
+      }
+      #contato form input:focus,
+      #contato form textarea:focus {
+        border-color: #003366;
+        outline: none;
+        box-shadow: 0 0 10px rgba(0, 51, 102, 0.2);
+      }
+      #contato form button {
+        padding: 14px;
+        background: linear-gradient(90deg, #003366, #0055a5);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: 0.4s;
+      }
+      #contato form button:hover {
+        background: linear-gradient(90deg, #0055a5, #003366);
+        transform: scale(1.05);
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(90deg, #003366, #0055a5);
+        color: white;
+        text-align: center;
+        padding: 50px 20px;
+      }
+      footer .social {
+        margin: 25px 0;
+      }
+      footer .social a {
+        margin: 0 15px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      footer .social a:hover {
+        color: #ffcc00;
+      }
+      iframe.mapa {
+        width: 100%;
+        height: 250px;
+        border: none;
+        border-radius: 15px;
+        margin-top: 25px;
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          gap: 15px;
+          margin-top: 10px;
+        }
+        .banner h1 {
+          font-size: 2em;
+        }
+        .banner p {
+          font-size: 1.1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">FACENS</div>
+        <ul>
+          <li><a href="#cursos">Cursos</a></li>
+          <li><a href="#video">Vídeo</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="banner">
+      <div class="overlay">
+        <h1>Bem-vindo à FACENS</h1>
+        <p>
+          Formando profissionais para o futuro da tecnologia e inovação em
+          Administração, Engenharia e Computação
+        </p>
+        <a href="#cursos">Veja nossos cursos</a>
+      </div>
+    </div>
+
+    <section id="video" class="video">
+      <h2>Conheça Nossa Estrutura e Laboratórios</h2>
+      <iframe
+        src="09.09/Cursos de Tecnologia Facens Inove o seu jeito de aprender.mp4"
+        allowfullscreen
+      ></iframe>
+    </section>
+
+    <section id="cursos">
+      <h2>Cursos de Administração, Engenharia e Computação</h2>
+      <div class="cursos">
+        <div class="curso">
+          <img src="09.09/adm.png" alt="Curso de Administração FACENS" />
+          <h3>Administração</h3>
+          <p>
+            Curso voltado para gestão de negócios, liderança e empreendedorismo,
+            preparando profissionais para desafios atuais e futuros.
+          </p>
+        </div>
+        <div class="curso">
+          <img src="09.09/engenharia.png" alt="Curso de Engenharia FACENS" />
+          <h3>Engenharia</h3>
+          <p>
+            Formação em engenharia para o mercado atual e futuro, com
+            laboratórios modernos, inovação tecnológica e professores
+            especializados.
+          </p>
+        </div>
+        <div class="curso">
+          <img src="09.09/CC.png" alt="Curso de Ciência da Computação FACENS" />
+          <h3>Ciência da Computação</h3>
+          <p>
+            Desenvolvimento de software, inteligência artificial, segurança
+            digital e tecnologias emergentes, com práticas de mercado.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="depoimentos">
+      <h2>Depoimentos de Alunos</h2>
+      <div class="depoimentos">
+        <div class="depoimento">
+          <img src="09.09/P1.png" alt="Aluno Maria S." />
+          <p>
+            "A estrutura da faculdade é excelente e os professores são
+            incríveis, oferecendo aprendizado prático e teórico."
+          </p>
+          <strong>- Maria S.</strong>
+        </div>
+        <div class="depoimento">
+          <img src="09.09/P2.png" alt="Aluno João P." />
+          <p>
+            "Encontrei aqui a oportunidade de me preparar para o mercado, com
+            cursos atualizados e professores capacitados."
+          </p>
+          <strong>- João P.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato">
+      <h2>Fale Conosco</h2>
+      <form action="obrigado.html" method="POST">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required />
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="mensagem">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>
+        &copy; 2025 FACENS Centro Universitário - Todos os direitos reservados
+      </p>
+      <div class="social">
+        <a href="#">Facebook</a> | <a href="#">Instagram</a> |
+        <a href="#">LinkedIn</a>
+      </div>
+      <p>
+        Rodovia Senador José Ermírio de Moraes, 1425 – Castelinho km 1,5 – Alto
+        da Boa Vista, Sorocaba/SP – CEP 18087-125
+      </p>
+      <p>Fone: (15) 3238-1188</p>
+      <iframe
+        class="mapa"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.849438951599!2d-47.4298!3d-23.4699!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce57a2c65b6f5f%3A0x62b1b7c91e7e408!2sFACENS%20Centro%20Universit%C3%A1rio!5e0!3m2!1spt-BR!2sbr"
+        allowfullscreen=""
+        loading="lazy"
+      ></iframe>
+    </footer>
+
+    <script>
+      // Animar cards quando entram na tela
+      function animarScroll() {
+        const elementos = document.querySelectorAll(
+          ".curso, .depoimento, #contato form"
+        );
+        const windowBottom = window.innerHeight + window.scrollY;
+        elementos.forEach((el) => {
+          if (el.offsetTop < windowBottom - 100) {
+            el.classList.add("show");
+          }
+        });
+      }
+      window.addEventListener("scroll", animarScroll);
+      window.addEventListener("load", animarScroll);
+    </script>
+  </body>
+</html>
